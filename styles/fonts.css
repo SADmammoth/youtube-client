@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "TitillumWeb";
+    src: url("../assets/fonts/TitillumWeb-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "TitillumWeb";
+    src: url("../assets/fonts/TitillumWeb-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "TitillumWeb";
+    src: url("../assets/fonts/TitillumWeb-Semibold.ttf") format("truetype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "FontAwesome Pro";
+    src: url("../assets/fonts/FontAwesome_Pro-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "FontAwesome Pro";
+  src: url("../assets/fonts/FontAwesome_Pro-Solid-900.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "FontAwesome Brands";
+  src: url("../assets/fonts/FontAwesome_Brands-Regular.otf") format("opentype");
+}
+
+
+@font-face {
+    font-family: "MinionPro";
+    src: url("../assets/fonts/MinionPro-Regular.ttf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Malaga OT";
+    src: url("../assets/fonts/Malaga_OT-Reg-Italic.otf") format("opentype");
+    font-style: italic;
+}
