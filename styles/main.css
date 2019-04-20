@@ -25,7 +25,11 @@ html {
 
 body {
   font-family: 'TitillumWeb';
- 
+  padding-top: 70px;
+}
+
+section {
+  margin: 0 auto;
 }
 
 h1 {
@@ -78,6 +82,7 @@ header {
 
 .nav a:hover {
   font-weight: bold;
+  font-size: 97%;
 }
 
 .slash_list {
@@ -90,6 +95,7 @@ header {
 #curr_lang, .slash_list a:hover {
   font-weight: bold;
   color: #959595;
+  font-size: 95%;
 }
 
 #curr_lang {
@@ -109,7 +115,7 @@ header button {
 }
 
 .main_picture h2{
-  font-weight: 400;
+  font-weight: 600;
   /* font-size: calc(15px + 3vw); */
   font-size: 4.2rem;
   color: #6e6f6e;
@@ -117,6 +123,7 @@ header button {
 }
 
 .main_picture h3{
+  margin-top: -12px;
   color: #6e6e6e;
   font-weight: 400;
   /* font-size: calc(2vw + 6px); */
@@ -129,12 +136,12 @@ header button {
 }
 
 .main_picture{
-  background-image: url('../assets/images/Main_picture.jpg');
+  background-image: url('../assets/images/main_bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: 50% 50%;
   width: 100%;
-  height: 800px;
+  height: 70vh;
+  margin-bottom: 150px;
   display: flex;
   align-content: center;
   justify-content: center;
@@ -149,13 +156,14 @@ header button {
 }
 
 .main_picture .btn_block{
-  background: radial-gradient(ellipse at top, rgba(103,140,227,1) 0%,rgba(125,185,232,0) 50%);
+  background: radial-gradient(ellipse at top, #6280cb 0%,#6280cb00 50%);
   background-repeat: no-repeat;
-  background-position: 50% calc(11px + 1.1vw);
-  background-size: calc(150px + 46vw) calc(22px + 2.2vw);
-
+  background-position: 50% calc(5px + 1.1vw);
+  background-size: calc(150px + 46vw) calc(15px + 2.2vw);
   width: calc(75px + 32vw);
-  height: calc(26px + 2.2vw);
+  height: calc(26px + 3.2vw);
+  margin-bottom: 220px;
+  margin-top: 73px;
 }
 
 .main_picture button{
@@ -163,13 +171,19 @@ header button {
 }
 
 .public_accounts {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  position: relative;
-  left: 45%;
-  bottom: 20%;
+  position: absolute;
+  align-items: flex-end;
+  right: 0;
+  top: 25%;
   color: #676766;
   font-size: 22px;
+  height: 600px;
+  width: 190px;
+  padding-right: 3vw;
+  border-bottom: 1px solid #b9b9b9;
 }
 
 .public_accounts .Gp:hover{
@@ -209,7 +223,8 @@ button {
   font-family: 'TitillumWeb';
   font-weight: bold;
   border: none;
-  box-shadow: 0  0px  7px #5f2f6a40, /*opacity: 25%*/
+  box-shadow: 0  2px  16px #6280cb,
+              0  0px  7px #5f2f6a40, /*opacity: 25%*/
               0  7px  9px #64739726, /*opacity: 15%*/ 
               0 13px 21px #1450cc40, /*opacity: 25%*/
               0  4px 16px #6691e959, /*opacity: 35%*/
@@ -299,10 +314,10 @@ button {
 
 .testimonials {
   background-image: url('../assets/images/devices_bg.png');
-  background-position: 0 100%;
-  background-size: 100% 80%;
+  background-position: 100% -250%;
+  background-size: 100% auto;
   background-repeat: no-repeat;
-  height: 670px;
+  height: 740px;
 }
 
 .download_app {
@@ -360,13 +375,35 @@ button {
   width: 31.65%;
   /* font-size: 14px; */
   color: #a3a1a1;
- display: grid;
- grid:
+ /* display: grid; */
+ /* grid:
     'img head1' 0.5fr
     'img head2' 1fr
     'paragraph paragraph' 4fr / auto 1fr;
-    align-content: center;
+    align-content: center; */
   padding: 0;
+  position: relative;
+  z-index: 2;
+  bottom: 180px;
+  margin-bottom: -180px;
+}
+
+.feature_head img{
+  float: left;
+}
+
+.feature_head {
+  padding-bottom: 30px;
+}
+
+.feature:nth-child(n+2){
+  margin-top: 100px;
+}
+
+.feature:first-child  .feature_head {
+  padding-top: 100px;
+  border-right: 1px solid #b9b9b9;
+
 }
 
 @media (orientation: landscape){
@@ -385,8 +422,8 @@ button {
 }
 
 .feature h2{
-  margin-top: 10px;
-  grid-area: head1;
+  padding-top: 10px;
+  /* grid-area: head1; */
   /* font-size: 30px; */
   font-size: 2.15rem;
   font-weight: 400;
@@ -395,30 +432,37 @@ button {
 }
 
 .feature h3 {
-  grid-area: head2;
+  /* grid-area: head2; */
   line-height: 1;
   /* font-size: 18px; */
   font-size: 1.28rem;
   font-weight: 400;
-  align-self: start;
+  /* align-self: start; */
 }
 
 .feature p {
-  grid-area: paragraph;
+  /* grid-area: paragraph; */
   width: 95%;
-  align-self: start;
+  /* align-self: start; */
+  clear: left;
 }
 
 .feature:nth-child(2){
-  border-right: 1px solid black;
+  border-right: 1px solid #b9b9b9;
 }
 
 .main_feature {
-  height: 279px;
+  box-sizing: border-box;
   text-align: right;
-  width: 62%;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  width: 62.05%;
+  border-right: 1px solid #b9b9b9;
+  border-bottom: 1px solid #b9b9b9;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 30px;
+  padding-top: 105px;
 }
 
 .main_feature p {
@@ -427,7 +471,7 @@ button {
   color: #a3a1a1;
   font-size: 24px;
   width: 619px;
-
+  margin-bottom: -10px;
 }
 
 .main_feature h2 {
@@ -455,8 +499,8 @@ button {
   padding: 20px 35px;
   line-height: .5;
   position: relative;
-  z-index:2;
-  top: 90px;
+  z-index: 2;
+  top: 28px;
   left: 150px;
   
 }
@@ -470,8 +514,8 @@ button {
   display: flex;
   flex-direction: column;
 }
+
 .feedback-slider input{
-  
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
@@ -498,6 +542,8 @@ button {
 }
 
 .feedbacks {
+  margin-left: 19%;
+  margin-top: 75px;
   font-family: 'Malaga OT';
   font-style: italic;
   color: #101010;
@@ -547,6 +593,7 @@ button {
   color: #7c7c7c;
   font-weight: 400;
 }
+
 .partners_sponsors {
   box-sizing: border-box;
   width: 88%;
@@ -558,13 +605,17 @@ button {
   align-items: flex-end;
   color: #afafaf;
   /* font-size: 14px; */
+  padding: 20px;
 }
 
 .image-line {
   display: flex;
-  width: 75%;
   margin-top: 2%;
   justify-content: space-between;
+}
+
+.image-line img {
+  width: 90%;
 }
 
 footer {
