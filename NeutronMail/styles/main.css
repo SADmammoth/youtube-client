@@ -87,6 +87,23 @@ h1 {
   font-size: 0.9rem;
 }
 
+header button {
+  box-sizing: border-box;
+  width: 5.3vw;
+  height: 32px;
+  justify-self: end;
+  font-weight: 600;
+}
+
+.log_in i{
+  margin-right: 5px;
+}
+
+.log_in {
+  margin-left: 30px;
+  margin-right: -16px;
+}
+
 /*SLASH_LIST CLASS*/
 .slash_list {
   list-style: none;
@@ -107,22 +124,6 @@ h1 {
 
 #curr_lang {
   border-bottom: 1px solid #bfc5d4;
-}
-
-header button {
-  width: 80px;
-  height: 32px;
-  margin-left: 2px;
-  justify-self: end;
-  font-weight: 600;
-}
-
-.log_in i{
-  margin-right: 5px;
-}
-
-.log_in {
-  margin-left: 26px;
 }
 
 /*! MAIN_PICTURE SECTION*/
