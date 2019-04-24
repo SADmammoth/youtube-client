@@ -6,20 +6,26 @@
   outline: none;
 }
 
+@media (hover: none){
+  * {
+    transition: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: inherit;
 }
 
-@media (orientation: portrait){
-html {
-  font-size: 12px;
-}
-}
-
 @media (orientation: landscape){
   html {
     font-size: 13px;
+  }
+}
+
+@media (orientation: portrait){
+  html {
+    font-size: 11px;
   }
 }
 
@@ -77,9 +83,11 @@ h1 {
   list-style: none;
 }
 
-.nav a:hover {
-  font-weight: bold;
-  font-size: 97%;
+@media (hover: hover) {
+  .nav a:hover {
+    font-weight: bold;
+    font-size: 97%;
+  }
 }
 
 .languages {
@@ -128,10 +136,12 @@ header button {
 
 /*! MAIN_PICTURE SECTION*/
 
+@media (orientation: landscape){
 .main_picture{
   background-image: url('../assets/images/main_bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: 50% 50%;
   width: 100%;
   height: 68vh;
   margin-bottom: 150px;
@@ -141,7 +151,23 @@ header button {
   align-items: center;
   flex-flow: column;
 }
-
+}
+@media (orientation: portrait){
+  .main_picture{
+    background-image: url('../assets/images/main_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    width: 100%;
+    height: 50vw;
+    margin-bottom: 150px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+  }
+}
 .main_picture h2{
   font-weight: 600;
   /* font-size: calc(15px + 3vw); */
@@ -264,13 +290,6 @@ button {
   transition: all ease-in 0.2s;
 }
 
-.dark-btn:hover {
-  box-sizing: border-box;
-  background: #ffffff;
-  color: #5f2f6a;
-  box-shadow: none;
-  border: 2px solid #5f2f6a;
-}
 
 .small-dark-btn {
   box-sizing: border-box;
@@ -280,15 +299,6 @@ button {
   border: none;
 }
 
-.small-dark-btn:hover {
-  box-sizing: border-box;
-  background: #ffffff;
-  color: #5f2f6a;
-  box-shadow: none;
-  border: 2px solid #5f2f6a;
-}
-
-
 .blue-btn {
   background-image: linear-gradient(to right, #35bbe0, #5e7bea);
   border-radius: 28px;
@@ -297,23 +307,15 @@ button {
   font-weight: bold;
   border: none;
   box-shadow: 0  0px  7px #5f2f6a40, /*opacity: 25%*/
-              0  7px  9px #1ae6da26, /*opacity: 15%*/ 
-              0 13px 21px #1ae6da40, /*opacity: 25%*/
-              0  4px 16px #1ae6da59, /*opacity: 35%*/
-              0  4px 16px #0000001a, /*opacity: 10%*/
-              0  3px  9px #1ae6da1a, /*opacity: 10%*/
-              0  3px  9px #0000001a, /*opacity: 10%*/
-              0  3px  3px #1ae6da1a, /*opacity: 10%*/
-              0  3px  3px #0000001a; /*opacity: 10%*/
+  0  7px  9px #1ae6da26, /*opacity: 15%*/ 
+  0 13px 21px #1ae6da40, /*opacity: 25%*/
+  0  4px 16px #1ae6da59, /*opacity: 35%*/
+  0  4px 16px #0000001a, /*opacity: 10%*/
+  0  3px  9px #1ae6da1a, /*opacity: 10%*/
+  0  3px  9px #0000001a, /*opacity: 10%*/
+  0  3px  3px #1ae6da1a, /*opacity: 10%*/
+  0  3px  3px #0000001a; /*opacity: 10%*/
   transition: all ease-in 0.2s;
-}
-
-.blue-btn:hover {
-  box-sizing: border-box;
-  background: #ffffff;
-  color: #35bbe0;
-  box-shadow: none;
-  border: 2px solid #35bbe0;
 }
 
 .bright-btn {
@@ -324,23 +326,14 @@ button {
   font-weight: bold;
   border: none;
   box-shadow: 0  7px  9px #8e75de26, /*opacity: 15%*/ 
-              0  4px 16px #6691e959, /*opacity: 35%*/
-              0  4px 16px #0000001a, /*opacity: 10%*/
-              0  3px  9px #3567cd1a, /*opacity: 10%*/
-              0  3px  9px #0000001a, /*opacity: 10%*/
-              0  3px  3px #6691e91a, /*opacity: 10%*/
-              0  3px  3px #0000001a; /*opacity: 10%*/
+  0  4px 16px #6691e959, /*opacity: 35%*/
+  0  4px 16px #0000001a, /*opacity: 10%*/
+  0  3px  9px #3567cd1a, /*opacity: 10%*/
+  0  3px  9px #0000001a, /*opacity: 10%*/
+  0  3px  3px #6691e91a, /*opacity: 10%*/
+  0  3px  3px #0000001a; /*opacity: 10%*/
   transition: all ease-in 0.2s;
 }
-
-.bright-btn:hover {
-  box-sizing: border-box;
-  background: #ffffff;
-  color: #6379cf;
-  box-shadow: none;
-  border: 2px solid #6379cf;
-}
-
 
 .ghost-btn{
   background-color: #ffffff;
@@ -349,12 +342,45 @@ button {
   transition: all ease-in 0.2s;
 }
 
+@media (hover: hover){
+.dark-btn:hover {
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #5f2f6a;
+  box-shadow: none;
+  border: 2px solid #5f2f6a;
+}
+
+.small-dark-btn:hover {
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #5f2f6a;
+  box-shadow: none;
+  border: 2px solid #5f2f6a;
+}
+
+.blue-btn:hover {
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #35bbe0;
+  box-shadow: none;
+  border: 2px solid #35bbe0;
+}
+.bright-btn:hover {
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #6379cf;
+  box-shadow: none;
+  border: 2px solid #6379cf;
+}
+
 .ghost-btn:hover{
   box-sizing: border-box;
   border-radius: 28px;
   color: #6379cf;
   box-shadow: none;
   border: 2px solid #6379cf;
+}
 }
 
 /*!FEATURES SECTION*/
@@ -451,7 +477,6 @@ button {
 /*!MAIN_FEATURE BLOCK*/
 .main_feature {
   width: 92%;
-  
   grid-column-start: 1;
   grid-column-end: span 2;
   text-align: right;
@@ -515,6 +540,7 @@ button {
 }
 
 /*! TESTIMONIALS BLOCK*/
+@media (orientation: landscape){
 .testimonials {
   background-image: url('../assets/images/devices_bg.png');
   background-position: 100% -85%;
@@ -522,6 +548,14 @@ button {
   background-repeat: no-repeat;
   height: 638px;
 }
+}
+
+@media (orientation: portrait){
+  .testimonials {
+    background-image: none;
+    height: 638px;
+  }
+  }
 
 /*IMAGE-LINE STYLE*/
 .image-line {
@@ -696,7 +730,7 @@ button {
 
 .donate .btn_block {
   width: 45.5%;
-  height: 6.2vh;
+  height: 50px;
   justify-content: space-between;
 }
 
