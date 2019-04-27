@@ -9,22 +9,22 @@
 </head>
 <body>
   <header>
-    <button id="burger">&#0150;<br>&#0150;<br>&#0150;<br></button>
-    <h1>CodeJam &#0150; Pallette</h1>
+      <button id="burger">&#0150;<br>&#0150;<br>&#0150;<br></button>
+      <h1>CodeJam &#0150; Pallette</h1>
   </header>
   <section class="workspace">
     <div class="instruments">
-      <button id="bucket-tool">
+      <button id="bucket-tool"  onclick="change_tool('bucket', this);">
         bucket
       </button>
-      <button id="pipette-tool">
+      <button id="pipette-tool"  onclick="change_tool('pipette', this);">
         pipette
       </button>
       <hr>
       <button id="move-tool">
         move
       </button>
-      <button id="transform-tool" >
+      <button id="transform-tool" onclick="change_tool('transform', this);">
         transform
       </button>
     </div>
@@ -36,23 +36,23 @@
       prev
       </button>
       <hr>
-      <button id="add1-color">
+      <button id="add1-color" style="background-color: red;">
         color1
       </button>
-      <button id="add2-color">
+      <button id="add2-color" style="background-color: green;">
         color2
       </button>
     </div>
     <div class="canvas">
-      <div class="figure"></div>
-      <div class="figure"></div>
-      <div class="figure" ></div>
-      <div class="figure" ></div>
-      <div class="figure" ></div>
-      <div class="figure" ></div>
-      <div class="figure circle" ></div>
-      <div class="figure" ></div>
-      <div class="figure" ></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure circle" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);"></div>
     </div>
   </section>
 </body>
