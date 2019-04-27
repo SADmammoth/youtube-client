@@ -18,7 +18,6 @@ function change_tool(name, btn){
     change_current_color(fig.target.style.backgroundColor);
     document.removeEventListener('click', pick, false);
     change_tool('none');
-    alert('s');
   }
   if(name === 'pipette'){
         document.addEventListener('click', pick, false);
@@ -29,9 +28,8 @@ function change_tool(name, btn){
 }
 
 function on_click_fig(figure){
-  
   switch(current_tool){
-    case "transform": figure.classList.add("circle");break;
+    case "transform": figure.classList.toggle('circle');break;
     case "bucket": figure.style = `background-color: ${current_color}`;break;
   }
 }
@@ -50,11 +48,11 @@ function on_dragend(figure){
 
 function change_current_color(color){
   if(color){
-  let curr_color_btn = document.getElementById("current-color");
-  let prev_color_btn = document.getElementById("previous-color");
-  prev_color_btn.style.backgroundColor= current_color;
-  curr_color_btn.style.backgroundColor= color;
-  current_color= color;
+    let curr_color_btn = document.getElementById("color_picker");
+    let prev_color_btn = document.getElementById("previous-color").querySelector('.color');
+    prev_color_btn.style.backgroundColor= current_color;
+    curr_color_btn.value = RGBtoHEX(color);
+    current_color= color;
   }
 }
 
@@ -74,3 +72,17 @@ function stop_tracking(fig){
   fig.style.top =  parseInt(fig.style.top) + event.clientY - parseInt(fig.getBoundingClientRect().height)/2 - 
   fig.getBoundingClientRect().top + 'px';
 }
+
+function RGBtoHEX(str){
+  if(str.match(/#[0-9a-fA-F]{6}/)[0] === str){
+    return str;
+  }
+  let sf = new String(str);
+  let rgb = sf.replace(/rgb\(([0-9]*), ([0-9]*), ([0-9]*)\)/, '$1 $2 $3');
+  rgb = rgb.split(' ');
+  function toHex(x){
+    return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return `#${toHex(rgb[0])}${toHex(rgb[1])}${toHex(rgb[2])}`;
+}
+
