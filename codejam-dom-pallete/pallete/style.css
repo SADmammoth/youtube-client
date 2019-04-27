@@ -1,0 +1,48 @@
+.canvas {
+  display: grid;
+  grid-template: repeat(3,1fr) / repeat(3,1fr);
+  width: calc(150px*3);
+  height: calc(150px*3);
+}
+
+.figure {
+  display: block;
+  width: 150px;
+  height: 150px;
+  background-color: #c4c4c4;
+  margin: 5px;
+}
+
+.circle {
+  border-radius: 100%;
+}
+
+.diamond {
+  transform: rotate(45deg) scale(0.7);
+}
+
+.active-btn {
+  background-color: #c4c4c4;
+  border: none;
+  outline: none;
+}
+
+#current-color{
+  background-color: #c4c4c4;
+}
+
+#previous-color {
+  background-color: #c4c4c4;
+}
+
+#add1-color{
+  background-color: red;
+}
+
+#add2-color{
+  background-color: green;
+}
+
+#burger {
+  float: left;
+}
