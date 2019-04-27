@@ -14,7 +14,7 @@ function change_tool(name, btn){
     document.getElementsByClassName('active-btn')[0].classList.remove("active-btn");
     if(name !== 'name')
       btn.classList.add("active-btn");
-  let pick = function(fig){
+    let pick = function(fig){
     change_current_color(fig.target.style.backgroundColor);
     document.removeEventListener('click', pick, false);
     change_tool('none');
@@ -36,6 +36,18 @@ function on_click_fig(figure){
   }
 }
 
+function on_drag(figure){
+  switch(current_tool){
+    case "move": track_mouse(figure); break;
+  }
+}
+
+function on_dragend(figure){
+  switch(current_tool){
+    case "move":stop_tracking(figure); break;
+  }
+}
+
 function change_current_color(color){
   if(color){
   let curr_color_btn = document.getElementById("current-color");
@@ -44,4 +56,21 @@ function change_current_color(color){
   curr_color_btn.style.backgroundColor= color;
   current_color= color;
   }
+}
+
+function track_mouse(fig){ 
+  if(Number.isNaN(fig.style.left) || !fig.style.left){
+    fig.style.left = 0; fig.style.top = 0;
+  }
+  fig.style.left= parseInt(fig.style.left) + event.clientX - parseInt(fig.getBoundingClientRect().width)/2 -
+  fig.getBoundingClientRect().left + 'px';
+  fig.style.top=  parseInt(fig.style.top) + event.clientY - parseInt(fig.getBoundingClientRect().height)/2 - 
+  fig.getBoundingClientRect().top + 'px' ;
+}
+
+function stop_tracking(fig){
+  fig.style.left = parseInt(fig.style.left) + event.clientX - parseInt(fig.getBoundingClientRect().width)/2 -
+  fig.getBoundingClientRect().left + 'px';
+  fig.style.top =  parseInt(fig.style.top) + event.clientY - parseInt(fig.getBoundingClientRect().height)/2 - 
+  fig.getBoundingClientRect().top + 'px';
 }

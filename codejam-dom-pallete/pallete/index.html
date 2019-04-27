@@ -11,6 +11,7 @@
   <header>
       <button id="burger">&#0150;<br>&#0150;<br>&#0150;<br></button>
       <h1>CodeJam &#0150; Pallette</h1>
+      <a href="index.html">Reset</a>
   </header>
   <section class="workspace">
     <div class="instruments">
@@ -21,7 +22,7 @@
         pipette
       </button>
       <hr>
-      <button id="move-tool">
+      <button id="move-tool" onclick="change_tool('move', this);">
         move
       </button>
       <button id="transform-tool" onclick="change_tool('transform', this);">
@@ -44,15 +45,24 @@
       </button>
     </div>
     <div class="canvas">
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure circle" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
-      <div class="figure" onclick="on_click_fig(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure circle" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
+      <div class="figure" onclick="on_click_fig(this);" ondragstart="this.style.position = 'relative'" 
+      ondrag="on_drag(this);" ondragend="on_dragend(this);"></div>
     </div>
   </section>
 </body>
