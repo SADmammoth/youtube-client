@@ -7,7 +7,7 @@
   <script src="index.js"></script>
   <title>Pallete</title>
 </head>
-<body onload="onload_func();">
+<body onload="onloadFunc();">
   <header class="panel">
       <input id="main-btn" class="spoiler" type="checkbox">
       <div class="dropdown main-menu"><a href="index.html">Reset</a></div>
@@ -18,32 +18,32 @@
   <section class="workspace">
     <ul class="tools panel">
       <li>
-        <button id="bucket-tool"  onclick="change_tool('bucket', this);">
+        <button id="bucket-tool"  onclick="changeTool('bucket', this);">
         <img src="./assets/images/icon-share.jpg" alt="" title="Paint bucket">
         <span>Paint bucket (B)</span>
       </button>
     </li>
     <li> 
-      <button id="pipette-tool"  onclick="change_tool('pipette', this);">
+      <button id="pipette-tool"  onclick="changeTool('pipette', this);">
         <img src="./assets/images/eye-dropper.jpg" alt="" title="Paint bucket">
         <span>Choose color (P)</span>
       </button>
     </li>
       <hr>
       <li>
-        <button id="move-tool" onclick="change_tool('move', this);">
+        <button id="move-tool" onclick="changeTool('move', this);">
         <img src="./assets/images/arrows-alt.jpg" alt="" title="Paint bucket">
          <span>Move (M)</span>
       </button>
     </li>
       <li>
-        <button id="transform-tool" onclick="change_tool('transform', this);">
+        <button id="transform-tool" onclick="changeTool('transform', this);">
         <img src="./assets/images/exchange-alt.jpg" alt="" title="Paint bucket">
         <span>Transform (T)</span>
       </button>
     </li>
     <li>
-        <button id="swap-tool" onclick="change_tool('swap', this);">
+        <button id="swap-tool" onclick="changeTool('swap', this);">
         <img src="./assets/images/swap.jpg" alt="" title="Swap figures">
         <span>Swap</span>
       </button>
@@ -51,7 +51,7 @@
     </ul>
     <ul class="colors panel"  draggable="false" >
       <li id="current-color">
-        <input id="color_picker" class="color" type="color" value="#c4c4c4" style="cursor: pointer;" oninput="change_current_color(this.value);">
+        <input id="color_picker" class="color" type="color" value="#c4c4c4" style="cursor: pointer;" oninput="changeCurrentColor(this.value);">
         <span>Current color</span>
       </li>
       <li id="previous-color" >
@@ -69,15 +69,15 @@
       </li>
     </ul>
     <div class="canvas">
-      <div class="figure" onclick="on_click_fig(this);" onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);" onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure circle" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="on_click_fig(this);"  onmousemove="track_mouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);" onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);" onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure circle" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
     </div>
   </section>
 </body>
