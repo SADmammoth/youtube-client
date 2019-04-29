@@ -2,11 +2,22 @@ let current_tool="none";
 let current_color="#c4c4c4c";
 let move = null;
 
+function onload_func(){
+  document.addEventListener('keydown', shortcuts, false);
+}
+
+function shortcuts(){
+  switch(event.key){
+    case 'b': change_tool('bucket', document.getElementById('bucket-tool'));break;
+    case 'p': change_tool('pipette', document.getElementById('pipette-tool'));break;
+    case 't': change_tool('transform', document.getElementById('transform-tool')); break;
+    case 'm': change_tool('move', document.getElementById('move-tool')); break;
+  }
+}
 
 function change_tool(name, btn){
   event.stopPropagation();
-  foreach_class((i)=>i.style.userSelect= "auto", "*:not([class*='figure'])");
-  foreach_class((i)=>i.style.cursor = "default", '.figure', ".color");
+  
   switch(name){
     case("transform"): foreach_class((i)=>i.style.cursor = "url('./assets/cursors/exchange-alt.svg'), pointer", '.figure');break; 
     case("bucket"): foreach_class((i)=>i.style.cursor = "url('./assets/cursors/fill-drip.svg'), pointer", '.figure');break; 
@@ -14,11 +25,14 @@ function change_tool(name, btn){
     case("move"): document.addEventListener('click', func, false);foreach_class((i)=>i.style.cursor = "url('./assets/cursors/arrows-alt.svg'), pointer", ".figure");break;
     case("swap"): document.addEventListener('click', func, false);foreach_class((i)=>i.style.cursor = "url('./assets/cursors/arrows-alt.svg'), pointer", ".figure");break;
   }
+  
   if(name === current_tool){
+    foreach_class((i)=>i.style.cursor = 'default', '.figure', ".color");
     btn.classList.remove("active-btn")
     current_tool = 'none';
     return;
   }
+
   current_tool = name;
   if(document.getElementsByClassName('active-btn').length != 0)
     document.getElementsByClassName('active-btn')[0].classList.remove("active-btn");
@@ -36,6 +50,7 @@ function change_tool(name, btn){
     document.removeEventListener('click', pick, false);
   }
 }
+
   function foreach_class(callback, ...args){
     args.forEach((i)=>Array.from(document.querySelectorAll(i)).forEach(callback));
   

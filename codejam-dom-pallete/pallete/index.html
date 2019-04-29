@@ -7,7 +7,7 @@
   <script src="index.js"></script>
   <title>Pallete</title>
 </head>
-<body>
+<body onload="onload_func();">
   <header class="panel">
       <input id="main-btn" class="spoiler" type="checkbox">
       <div class="dropdown main-menu"><a href="index.html">Reset</a></div>
@@ -20,50 +20,50 @@
       <li>
         <button id="bucket-tool"  onclick="change_tool('bucket', this);">
         <img src="./assets/images/icon-share.jpg" alt="" title="Paint bucket">
-        <span>Paint bucket</span>
+        <span>Paint bucket (B)</span>
       </button>
     </li>
     <li> 
       <button id="pipette-tool"  onclick="change_tool('pipette', this);">
         <img src="./assets/images/eye-dropper.jpg" alt="" title="Paint bucket">
-        <span>Choose color</span>
+        <span>Choose color (P)</span>
       </button>
     </li>
       <hr>
       <li>
         <button id="move-tool" onclick="change_tool('move', this);">
         <img src="./assets/images/arrows-alt.jpg" alt="" title="Paint bucket">
-         <span>Move</span>
+         <span>Move (M)</span>
       </button>
     </li>
       <li>
         <button id="transform-tool" onclick="change_tool('transform', this);">
         <img src="./assets/images/exchange-alt.jpg" alt="" title="Paint bucket">
-        <span>Transform</span>
+        <span>Transform (T)</span>
       </button>
     </li>
     <li>
-      <button id="swap-tool" onclick="change_tool('swap', this);">
-      <img src="./assets/images/swap.jpg" alt="" title="Swap figures">
-       <span>Swap figures</span>
-    </button>
-  </li>
+        <button id="swap-tool" onclick="change_tool('swap', this);">
+        <img src="./assets/images/swap.jpg" alt="" title="Swap figures">
+        <span>Swap</span>
+      </button>
+    </li>
     </ul>
     <ul class="colors panel"  draggable="false" >
       <li id="current-color">
-        <input id="color_picker" class="color" type="color" value="#c4c4c4" oninput="change_current_color(this.value);">
+        <input id="color_picker" class="color" type="color" value="#c4c4c4" style="cursor: pointer;" oninput="change_current_color(this.value);">
         <span>Current color</span>
       </li>
-      <li id="previous-color">
+      <li id="previous-color" >
         <div class="color">prev</div>
        <span>Prev color</span>
       </li>
       <hr>
-      <li id="add1-color">
+      <li id="add1-color">       
         <div class="color"  style="background-color: #FF0000;"></div>
-         <span> red</span>
+         <span>red</span>
       </li>
-      <li id="add2-color">
+      <li id="add2-color">  
         <div class="color" style="background-color: #41B6F7;"></div>
          <span> blue</span>
       </li>
