@@ -8,7 +8,8 @@
 /* eslint-disable no-param-reassign */
 let currentTool = 'none';
 let currentColor = '#c4c4c4c';
-let move = null;
+let movingFigure = null;
+const movingFigure_atStart = {};
 
 function onloadFunc() {
   document.addEventListener('keydown', shortcuts, false);
@@ -26,49 +27,61 @@ function shortcuts() {
 
 function changeTool(name, btn) {
   event.stopPropagation();
+  document.removeEventListener('click', pick, false);
   switch (name) {
     case ('transform'): foreachClass(i => i.style.cursor = "url('./assets/cursors/exchange-alt.svg'), pointer", '.figure'); break;
     case ('bucket'): foreachClass(i => i.style.cursor = "url('./assets/cursors/fill-drip.svg'), pointer", '.figure'); break;
-    case ('pipette'): foreachClass(i => i.style.cursor = "url('./assets/cursors/eye-dropper.svg') -10 -10, pointer", '.figure', '.color'); break;
-    case ('move'): document.addEventListener('click', func, false); foreachClass(i => i.style.cursor = "url('./assets/cursors/arrows-alt.svg'), pointer", '.figure'); break;
-    case ('swap'): document.addEventListener('click', func, false); foreachClass(i => i.style.cursor = "url('./assets/cursors/arrows-alt.svg'), pointer", '.figure'); break;
-    default: throw new Error('Unknown tool');
+    case ('pipette'): document.addEventListener('click', pick, false); foreachClass(i => i.style.cursor = "url('./assets/cursors/eye-dropper.svg') -10 -10, pointer", '.figure', '.color'); break;
+    case ('move'): foreachClass(i => i.style.cursor = "url('./assets/cursors/arrows-alt.svg'), pointer", '.figure'); break;
+    case ('none'): break;
+    default: throw new Error(`Unknown tool ${name}`);
   }
 
   if (name === currentTool) {
-    foreachClass(i=> i.style.cursor = 'default', '.figure', '.color');
+    foreachClass(i => i.style.cursor = 'default', '.figure', '.color');
     btn.classList.remove('active-btn');
     currentTool = 'none';
     return;
   }
 
+  if (name !== currentTool && currentTool !== 'none') {
+    document.querySelector('.active-btn').classList.remove('active-btn');
+  }
+
+  if (name !== 'none') {
+    btn.classList.add('active-btn');
+  }
   currentTool = name;
-  if (document.getElementsByClassName('active-btn').length !== 0)
-  { document.getElementsByClassName('active-btn')[0].classList.remove('active-btn'); }
-  if (name !== 'none')
-  { btn.classList.add('active-btn'); }
-  const pick = function (fig) {
+
+  function pick(fig) {
     changeColor(fig.target.style.backgroundColor);
     document.removeEventListener('click', pick, false);
     changeTool('none');
-  };
-  if (name === 'pipette') {
-    document.addEventListener('click', pick, false);
-  }
-  else {
-    document.removeEventListener('click', pick, false);
   }
 }
 
 function foreachClass(callback, ...args) {
   args.forEach(i => Array.from(document.querySelectorAll(i)).forEach(callback));
-
 }
 
-function func() {
-  if (move) {
-    stopTracking(move);
+function setMovingFigure(fig) {
+  if (currentTool === 'move') {
+    movingFigure = fig;
+    movingFigure_atStart.left = fig.style.left;
+    movingFigure_atStart.top = fig.style.top;
+    movingFigure.style.zIndex = '9999';
+    document.body.ondragstart = function () {
+      return false;
+    };
+    event.target.addEventListener('mousemove', () => trackMouse(movingFigure));
+    event.target.addEventListener('mouseup', () => ((event.button === 0) ? stopTracking(fig) : false));
   }
+}
+
+function rollback() {
+  movingFigure.style.left = movingFigure_atStart.left;
+  movingFigure.style.top = movingFigure_atStart.top;
+  return movingFigure;
 }
 
 function onClickFig(figure) {
@@ -77,9 +90,9 @@ function onClickFig(figure) {
   switch (currentTool) {
     case 'transform': figure.classList.toggle('circle'); break;
     case 'bucket': figure.style.backgroundColor = currentColor; break;
-    case 'move': moveFig(figure); break;
-    case 'swap': moveFig(figure); break;
-    default: throw new Error('Unknown tool');
+    case 'move': break;
+    case 'none': break;
+    default: throw new Error(`Unknown tool ${currentTool}`);
   }
 }
 
@@ -93,37 +106,18 @@ function changeColor(color) {
   }
 }
 
-function moveFig(figure) {
-  if (move === null) {
-    move = figure;
-    figure.style.zIndex = '3';
-  }
-  else {
-    figure.style.zIndex = '2';
-    if (currentTool === 'swap' && figure !== move) {
-      swap(figure, move);
-      move = null;
-      return;
-    }
-    move = null;
-    stopTracking(figure);
-  }
-}
-
 function swap(fig1, fig2) {
   const buf = {};
   buf.left = fig1.getBoundingClientRect().left;
   buf.top = fig1.getBoundingClientRect().top;
-
   fig1.style.left = `${parseInt(fig1.style.left, 10) + fig2.getBoundingClientRect().left - fig1.getBoundingClientRect().left}px`;
-
   fig1.style.top = `${parseInt(fig1.style.top, 10) + fig2.getBoundingClientRect().top - fig1.getBoundingClientRect().top}px`;
   fig2.style.left = `${parseInt(fig2.style.left, 10) + buf.left - fig2.getBoundingClientRect().left}px`;
   fig2.style.top = `${parseInt(fig2.style.top, 10) + buf.top - fig2.getBoundingClientRect().top}px`;
 }
 
 function trackMouse(fig) {
-  if (currentTool === 'move' && move) {
+  if (movingFigure !== null) {
     event.stopPropagation();
     event.preventDefault();
     if (Number.isNaN(fig.style.left) || !fig.style.left) {
@@ -133,16 +127,31 @@ function trackMouse(fig) {
   - fig.getBoundingClientRect().left}px`;
     fig.style.top = `${parseInt(fig.style.top, 10) + event.clientY - parseInt(fig.getBoundingClientRect().height, 10) / 2
   - fig.getBoundingClientRect().top}px`;
+
   }
 }
 
 function stopTracking(fig) {
-  document.removeEventListener('click', func, false);
+  function findDroppable(event) {
+    movingFigure.style.display = 'none';
+    const elem = document.elementFromPoint(event.clientX, event.clientY);
+    movingFigure.style.display = 'block';
+    return (elem.classList.contains('figure')) ? elem: movingFigure;
+  }
+  const el = findDroppable(event);
+  if (el !== movingFigure) {
+    swap(rollback(), el);
+    movingFigure.style.zIndex = '2';
+    movingFigure = null;
+    return;
+  }
+
   fig.style.left = `${parseInt(fig.style.left, 10) + event.clientX - parseInt(fig.getBoundingClientRect().width, 10) / 2
   - fig.getBoundingClientRect().left}px`;
   fig.style.top = `${parseInt(fig.style.top, 10) + event.clientY - parseInt(fig.getBoundingClientRect().height, 10) / 2
   - fig.getBoundingClientRect().top}px`;
-
+  movingFigure.style.zIndex = '2';
+  movingFigure = null;
 }
 
 function RGBtoHEX(str) {
@@ -156,4 +165,22 @@ function RGBtoHEX(str) {
     return (`0${parseInt(x, 10).toString(16)}`).slice(-2);
   }
   return `#${toHex(rgb[0])}${toHex(rgb[1])}${toHex(rgb[2])}`;
+}
+
+function save() {
+  let string = '';
+  foreachClass(i => string += `${getComputedStyle(i).backgroundColor}~${i.classList}~${getComputedStyle(i).left}~${getComputedStyle(i).top}~`, '.figure');
+  sessionStorage.setItem('figures', string);
+  string = '';
+  foreachClass(i => string += `${getComputedStyle(i).backgroundColor}~`, '.color');
+  sessionStorage.setItem('colors', string);
+  sessionStorage.setItem('color_picker', document.getElementById('color_picker').value);
+}
+
+function load() {
+  let saved = sessionStorage.getItem('figures').split('~');
+  foreachClass((x, i, arr) => { x.style.backgroundColor = saved[i * 4]; arr[i].classList = Array.from(saved[i * 4 + 1].split(',')); arr[i].style.left = saved[i * 4 + 2]; arr[i].style.top = saved[i * 4 + 3]; }, '.figure');
+  saved = sessionStorage.getItem('colors').split('~');
+  foreachClass((x, i, arr) => { x.style.backgroundColor = saved[i]; });
+  changeColor(sessionStorage.getItem('color_picker'));
 }

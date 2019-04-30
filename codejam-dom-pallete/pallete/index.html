@@ -10,7 +10,11 @@
 <body onload="onloadFunc();">
   <header class="panel">
       <input id="main-btn" class="spoiler" type="checkbox">
-      <div class="dropdown main-menu"><a href="index.html">Reset</a></div>
+      <div class="dropdown main-menu"><button onclick="document.location.reload(false);">Reset</button>
+        <button  onclick="save();">Save</button>
+        <button onclick="load();">Load</button>
+        <input id="file-input" type="file" name="name" style="display: none;" />
+      </div>
       <h1>CodeJam &#0150; Pallette</h1>
       <input id="menu-btn" class="spoiler" type="checkbox">
       <div class="dropdown ad-menu"><a href="#">Credits</a></div>
@@ -42,12 +46,6 @@
         <span>Transform (T)</span>
       </button>
     </li>
-    <li>
-        <button id="swap-tool" onclick="changeTool('swap', this);">
-        <img src="./assets/images/swap.jpg" alt="" title="Swap figures">
-        <span>Swap</span>
-      </button>
-    </li>
     </ul>
     <ul class="colors panel"  draggable="false" >
       <li id="current-color">
@@ -69,15 +67,15 @@
       </li>
     </ul>
     <div class="canvas">
-      <div class="figure" onclick="onClickFig(this);" onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);" onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure circle" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
-      <div class="figure" onclick="onClickFig(this);"  onmousemove="trackMouse(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure circle" onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
+      <div class="figure"        onclick="onClickFig(this);"  onmousedown="setMovingFigure(this);" style="left:0px;top:0px;"></div>
     </div>
   </section>
 </body>
