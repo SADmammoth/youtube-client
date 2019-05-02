@@ -52,12 +52,13 @@ function changeTool(name, btn) {
     btn.classList.add('active-btn');
   }
   currentTool = name;
+}
 
-  function pick(fig) {
-    changeColor(fig.target.style.backgroundColor);
-    document.removeEventListener('click', pick, false);
-    changeTool('none');
-  }
+
+function pick(fig) {
+  changeColor(getComputedStyle(fig.target).backgroundColor);
+  document.removeEventListener('click', pick, false);
+  changeTool('none');
 }
 
 function foreachClass(callback, ...args) {
@@ -90,6 +91,7 @@ function onClickFig(figure) {
   switch (currentTool) {
     case 'transform': figure.classList.toggle('circle'); break;
     case 'bucket': figure.style.backgroundColor = currentColor; break;
+    case 'pipette': figure.addEventListener('click', pick, false); break;
     case 'move': break;
     case 'none': break;
     default: throw new Error(`Unknown tool ${currentTool}`);
