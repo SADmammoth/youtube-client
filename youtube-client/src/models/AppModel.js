@@ -1,3 +1,5 @@
+import Clip from './Clip.js'
+
 export default class AppModel {
   constructor(state) {
     this.state = state;
@@ -17,6 +19,6 @@ export default class AppModel {
     console.log(videosUrl);
     let videos = await fetch(videosUrl).then((res) => res.json()).then(res => Array.from(res.items));
     console.log(videos);
-    return videos;
+    return videos.map((vid, i) => new Clip(vid, i + this.state.resultsCount));
   }
 }

@@ -8,12 +8,14 @@ export default class App {
       APIkey: "AIzaSyBIayyyQFMCPmqrGVScDr5kZskIogkeco0",
       queue: '',
       nextPage: '',
+      resultsCount: 0,
+      pageSize: 5,
       videoIds: []
     };
   }
 
   async createSearchURL() {
-    this.state.searchUrl = `https://www.googleapis.com/youtube/v3/search?part=id&pageToken=${this.state.nextPage}&type=video&maxResults=5&key=${this.state.APIkey}&q=${this.state.queue}`;
+    this.state.searchUrl = `https://www.googleapis.com/youtube/v3/search?part=id&pageToken=${this.state.nextPage}&type=video&maxResults=${this.state.pageSize}&key=${this.state.APIkey}&q=${this.state.queue}`;
   }
 
   async createVideoUrl() {
@@ -33,8 +35,9 @@ export default class App {
     this.state.videoIds = res.items.map(e => e.id.videoId);
     this.createVideoUrl();
     const data = await model.getVideos();
-    const view = new AppView(data);
-    view.render();
+    const view = new AppView(data, 15);
+    view.renderCards();
+    this.state.resultsCount += this.state.pageSize;
   }
 
   start() {

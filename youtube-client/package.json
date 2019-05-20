@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "babel-loader": "^8.0.6",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "node-sass": "^4.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -23,7 +24,8 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development --watch --no-inline",
     "build": "webpack --mode production",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "scss": "node-sass --watch"
   },
   "repository": {
     "type": "git",

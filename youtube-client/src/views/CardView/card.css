@@ -1,0 +1,13 @@
+.card {
+  border: 3px black solid;
+  background-color: #c4c4c4;
+  height: 100%;
+  width: 400px;height: 300px;
+ }
+
+.card .desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; }
