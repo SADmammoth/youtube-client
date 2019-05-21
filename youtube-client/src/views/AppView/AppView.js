@@ -2,7 +2,7 @@ import CardView from '../CardView'
 
 export default class AppView {
   constructor(data, overflowCount) {
-    this.data = data;
+    this.data = Array(20).fill(0);
     this.overflowCount = overflowCount;
   }
 
@@ -15,54 +15,71 @@ export default class AppView {
     let content = document.createElement('ul');
     content.setAttribute('id', 'content');
     document.body.addEventListener('dragstart', () => false);
-    function drag() {
-      if (drag.flag) {
-        if (drag.prevX) {
-          if ((drag.prevX - event.screenX) > 5) {
-            drag.dir = 'left';
-            console.log((drag.prevX - event.screenX) / window.screen.width);
-
-
-          } else if ((drag.prevX - event.screenX) < -5) {
-            drag.dir = 'right';
-          }
-          if (drag.dir !== 'right' || geti() !== 0) {
-            if ((geti() - drag.i) === 1) {
-              drag.prevX = event.screenX;
-              drag.i++;
-              console.log('drag.i', drag.i);
-              assigntoi(drag.i);
-            } else {
-              assigntoi(geti() + (((drag.prevX - event.screenX)) / (450)));
-            }
-          }
-
-        } else { drag.prevX = event.screenX; }
-      }
-    }
     content.addEventListener('mousemove', drag);
     drag.flag = false;
     drag.i = 0;
-    content.addEventListener('mousedown', () => { event.preventDefault(); console.log(3); if (event.button === 0) { drag.flag = true } });
-    document.body.addEventListener('mouseup', () => {
-      if (drag.flag) {
-        console.log(9); if (event.button === 0) {
-          drag.flag = false; drag.prevX = 0;
-          if (drag.dir === 'right' && geti() !== 0) { assigntoi(geti() - 1); } else {
-            assigntoi(geti() + 1);
-          }
+    drag.dir = 'left';
+    function drag() {
+      function toggle() {
+        if (drag.dir === 'right') {
+          drag.dir = 'left';
+        }
+        if (drag.dir === 'left') {
+          drag.dir = 'right';
         }
       }
-    });
+      if (drag.flag) {
+        if (drag.prevX) {
+          console.log(drag.i, geti(), event.screenX - drag.prevX);
+          if (Math.abs(geti() - drag.i) >= 1) {
+            if (drag.dir === 'left') {
+              drag.i++;
+              assigntoi(drag.i);
+              drag.prevX = event.screenX;
+            } else {
+              drag.i--;
+              assigntoi(drag.i);
+              drag.prevX = event.screenX;
+            }
 
-    document.body.appendChild(content);
+          } else if ((geti() - drag.i) < 0 && drag.dir === 'left') {
+            console.log('-');
+
+            toggle();
+            drag.prevX = event.screenX;
+          }
+          if ((geti() - drag.i) > 0 && drag.dir === 'right') {
+            toggle();
+            drag.prevX = event.screenX;
+          }
+          addtoi((-event.screenX + drag.prevX) / 10000);
+        }
+      } else { drag.prevX = event.screenX; }
+    }
+
     function geti() {
-      return parseInt(getComputedStyle(content).getPropertyValue('--i'));
+      return parseFloat(getComputedStyle(content).getPropertyValue('--i'));
     }
 
     function assigntoi(i) {
       content.style.setProperty('--i', i);
     }
+    function addtoi(val) {
+      content.style.setProperty('--i', geti() + val);
+    }
+    content.addEventListener('mousedown', () => { event.preventDefault(); console.log(3); if (event.button === 0) { drag.flag = true } });
+    document.body.addEventListener('mouseup', () => {
+      if (drag.flag) {
+        drag.dir = 'left';
+        console.log(9); if (event.button === 0) {
+          drag.flag = false; drag.prevX = 0;
+          assigntoi(drag.i);
+        }
+      }
+    });
+
+    document.body.appendChild(content);
+
   }
 
   removeOverflow() {
@@ -82,4 +99,6 @@ export default class AppView {
     let N = content.children.length;
     content.style.setProperty('--n', N);
   }
+
+
 }
