@@ -16,9 +16,49 @@ export default class AppView {
     content.setAttribute('id', 'content');
     document.body.addEventListener('dragstart', () => false);
     content.addEventListener('mousemove', drag);
+    content.addEventListener('touchmove', swipe);
     drag.flag = false;
     drag.i = 0;
     drag.dir = 'left';
+    function swipe() {
+      function toggle() {
+        if (drag.dir === 'right') {
+          drag.dir = 'left';
+        }
+        if (drag.dir === 'left') {
+          drag.dir = 'right';
+        }
+      }
+      console.log(drag.prevX);
+      if (drag.flag) {
+        if (drag.prevX) {
+          console.log(drag.i, geti(), event.touches[0].pageX - drag.prevX);
+          if (Math.abs(geti() - drag.i) >= 1) {
+            if (drag.dir === 'left') {
+              drag.i++;
+              assigntoi(drag.i);
+              drag.prevX = event.touches[0].pageX;
+            } else {
+              drag.i--;
+              assigntoi(drag.i);
+              drag.prevX = event.touches[0].pageX;
+            }
+
+          } else if ((geti() - drag.i) < 0 && drag.dir === 'left') {
+            console.log('-');
+
+            toggle();
+            drag.prevX = event.touches[0].pageX;
+          }
+          if ((geti() - drag.i) > 0 && drag.dir === 'right') {
+            toggle();
+            drag.prevX = event.touches[0].pageX;
+          }
+          addtoi((-event.touches[0].pageX + drag.prevX) / 10000);
+        } else { drag.prevX = event.touches[0].pageX; }
+      }
+    }
+
     function drag() {
       function toggle() {
         if (drag.dir === 'right') {
@@ -68,6 +108,16 @@ export default class AppView {
       content.style.setProperty('--i', geti() + val);
     }
     content.addEventListener('mousedown', () => { event.preventDefault(); console.log(3); if (event.button === 0) { drag.flag = true } });
+    content.addEventListener('touchstart', () => { event.preventDefault(); console.log(3); drag.flag = true });
+
+    document.body.addEventListener('touchend', () => {
+      if (drag.flag) {
+        drag.dir = 'left';
+        drag.flag = false; drag.prevX = 0;
+        assigntoi(drag.i);
+
+      }
+    });
     document.body.addEventListener('mouseup', () => {
       if (drag.flag) {
         drag.dir = 'left';

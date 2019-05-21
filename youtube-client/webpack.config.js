@@ -1,12 +1,11 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'app.bundle.js',
-    // eslint-disable-next-line no-undef
-    path: path.resolve(__dirname, 'dist'),
+    path: __dirname,
+    publicPath: '/',
   },
   devtool: 'source-map',
   module: {

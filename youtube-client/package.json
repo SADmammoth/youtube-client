@@ -1,7 +1,6 @@
 {
   "name": "youtube-client",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "babel-loader": "^8.0.6",
@@ -25,7 +24,9 @@
     "dev": "webpack-dev-server --mode development --watch --no-inline",
     "build": "webpack --mode production",
     "lint": "eslint src/",
-    "scss": "node-sass --watch"
+    "scss": "node-sass --watch",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -36,5 +37,6 @@
   "bugs": {
     "url": "https://github.com/rolling-scopes-school/SADmammoth-2019Q1/issues"
   },
-  "homepage": "https://github.com/rolling-scopes-school/SADmammoth-2019Q1#readme"
+  "homepage": "https://github.com/rolling-scopes-school/SADmammoth-2019Q1#readme",
+  "description": ""
 }
