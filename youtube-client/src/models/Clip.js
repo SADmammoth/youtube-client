@@ -15,6 +15,5 @@ export default class Clip {
     this.viewCount = this.res.statistics.viewCount;
     this.author = this.res.snippet.channelTitle;
     this.count = count;
-    console.log('count' + this.count);
   }
 }

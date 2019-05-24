@@ -4,29 +4,51 @@
   }
 }
 
+@media screen and (min-width: 1400px){
+  :root{
+    --card_width: 20vw;
+    --spacing: calc((100% - (var(--card_width)*var(--page_size)))/(2.1*var(--page_size)));
+    --page_size: 4;
+  }
+  }
+
+@media screen and (max-width: 1400px){
 :root{
-  --card_width: 400px;
+  --card_width: 30vw;
+  --spacing: calc((100% - (var(--card_width)*var(--page_size)))/(2.1*var(--page_size)));
   --page_size: 3;
 }
+}
 
-@media (max-width: 1000px){
+@media screen and (max-width: 1000px){
   :root{
-    --card_width: 200px;
+  --card_width: 40vw;
+  --spacing: calc((100% - (var(--card_width)*var(--page_size)))/(2.1*var(--page_size)));
+  --page_size: 2;
   }
 }
+
+@media screen and (max-width: 800px){
+  :root{
+  --card_width: 60vw;
+  --spacing: calc((100% - (var(--card_width)*var(--page_size)))/(2.1*var(--page_size)));
+  --page_size: 1;
+  }
+}
+
 
 #content {
   display: flex;
   align-items: center;
-  height: 90vh;
+  height: 60vh;
   overflow: hidden;
   margin: 0 auto;
 }
 
 #content li {
   width: var(--card_width);
-  height: 50vh;
-  margin: 0 50px;
+  height: 60vh;
+  margin: 0 var(--spacing);
   box-sizing: border-box;
   transform: translate(calc(var(--i)*(var(--card_width)+50px)*(-1)));
   transition: transform 1s ease-out;
@@ -133,7 +155,7 @@ input.slider-main::after {
 
 .slider {
   position: absolute;
-  bottom: 25%;
+  bottom: 15%;
   transform: translateX(50%);
   right: 50%;
   z-index: 2;

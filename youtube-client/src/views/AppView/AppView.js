@@ -1,4 +1,5 @@
 import CardView from '../CardView'
+import { drag, moveslider, assignProp } from './Drag.js'
 export default class AppView {
   constructor(data, overflowCount, last_i, load_prev, load_next, endflag) {
     this.data = data || new Array(overflowCount).fill(0);
@@ -30,7 +31,7 @@ export default class AppView {
           return;
         }
         document.body.style.setProperty('--i', eval(getComputedStyle(event.target, '::before').getPropertyValue('--n').replace(/.*([0-9] [-+] [0-9]).*/, '$1')));
-        moveslider();
+        moveslider(slider);
       })
       checkbox.style.display = 'none';
       slider.appendChild(checkbox);
@@ -39,29 +40,7 @@ export default class AppView {
     slider.children[0].style.display = 'none';
     slider.children[1].style.display = 'none';
 
-    function moveslider() {
-      let first = parseInt(getComputedStyle(slider.children[0]).getPropertyValue('--i')) - 2;
-      if (getComputedStyle(document.body).getPropertyValue('--i') === '1') {
-        first = -1;
-        slider.children[0].style.display = 'none';
-        slider.children[1].style.display = null;
-      }
-      if (getComputedStyle(document.body).getPropertyValue('--i') === '2') {
-        first = 0;
-        slider.children[0].style.display = null;
-        slider.children[1].style.display = null;
-      }
-      if (getComputedStyle(document.body).getPropertyValue('--i') === '0') {
-        first = -2;
-        slider.children[0].style.display = 'none';
-        slider.children[1].style.display = 'none';
-      } else {
-        if (document.getElementsByClassName('slider-main')[0]) document.getElementsByClassName('slider-main')[0].classList.remove('slider-main');
-        slider.children[parseInt(getComputedStyle(document.body).getPropertyValue('--i')) - first].setAttribute('class', 'slider-main');
-      }
 
-
-    }
 
     document.body.appendChild(slider);
     let searchbox = document.createElement('div');
@@ -81,16 +60,23 @@ export default class AppView {
     let content = document.createElement('ul');
     content.setAttribute('id', 'content');
 
+    drag.slider = slider;
+    drag.content = content;
+    drag.propertyName = '--i';
+    drag.dragDir = 'left';
+    drag.dragFlag = false;
+    drag.property = 0;
+    drag.prevX = undefined;
+    drag.last_i = this.last_i;
+    drag.load_prev = this.load_prev;
+    drag.load_next = this.load_next;
+    drag.overflowCount = this.overflowCount;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 181ba34... feat: interactive slider; minor styles
     document.body.addEventListener('dragstart', () => false);
     content.addEventListener('mousemove', drag);
-    content.addEventListener('touchmove', swipe);
+    content.addEventListener('touchmove', drag);
     content.addEventListener('mousedown', () => { event.preventDefault(); if (event.button === 0) { drag.dragFlag = true } });
-    content.addEventListener('touchstart', () => { event.preventDefault(); drag.dragFlag = true });
+    content.addEventListener('touchstart', () => { event.preventDefault(); drag.dragFlag = true; });
     document.body.appendChild(content);
     document.body.addEventListener('touchend', () => {
       if (drag.dragFlag) {
@@ -100,6 +86,7 @@ export default class AppView {
 
       }
     });
+
     document.body.addEventListener('mouseup', () => {
       if (drag.dragDir === 'right') {
         if ((drag.last_i - drag.overflowCount - drag.property) === 0) {
@@ -121,121 +108,6 @@ export default class AppView {
         }
       }
     });
-
-    function toggleDirection() {
-      if (drag.dragDir === 'right') {
-        drag.dragDir = 'left';
-      }
-      if (drag.dragDir === 'left') {
-        drag.dragDir = 'right';
-      }
-    }
-
-    function drag() {
-      if (drag.dragDir === 'right') {
-        if ((drag.last_i - drag.overflowSize - drag.property) === 0) {
-          drag.load_prev();
-          return;
-        }
-      }
-      else {
-        if ((drag.last_i - drag.property) === 0) {
-          drag.load_next();
-          return;
-        }
-      }
-      if (drag.dragFlag) {
-
-        if (drag.prevX) {
-          moveslider();
-          if (Math.abs(getRealProp() - drag.property) >= 1) {
-            if (drag.dragDir === 'left') {
-
-              drag.property++;
-              assignProp(drag.property);
-              drag.prevX = event.screenX;
-            } else {
-              drag.property--;
-              assignProp(drag.property);
-              drag.prevX = event.screenX;
-            }
-
-          } else if ((getRealProp() - drag.property) < 0 && drag.dragDir === 'left') {
-            toggleDirection();
-            drag.prevX = event.screenX;
-          }
-          if ((getRealProp() - drag.property) > 0 && drag.dragDir === 'right') {
-            toggleDirection();
-            drag.prevX = event.screenX;
-          }
-          addtoProp((-event.screenX + drag.prevX) / 4000);
-        }
-      } else { drag.prevX = event.screenX; }
-    }
-
-    drag.content = content;
-    drag.propertyName = '--i';
-    drag.dragDir = 'left';
-    drag.dragFlag = false;
-    drag.property = 0;
-    drag.prevX = undefined;
-    drag.last_i = this.last_i;
-    drag.load_prev = this.load_prev;
-    drag.load_next = this.load_next;
-    drag.overflowCount = this.overflowCount;
-
-    function swipe() {
-      if (drag.dragDir === 'right') {
-        if ((drag.last_i - drag.overflowSize - drag.property) === 0) {
-          drag.load_prev();
-          return;
-        }
-      }
-      else {
-        if ((drag.last_i - drag.property) === 0) {
-          drag.load_next();
-          return;
-        }
-      }
-      if (drag.dragFlag) {
-        if (drag.prevX) {
-          if (Math.abs(getRealProp() - drag.property) >= 1) {
-            if (drag.dragDir === 'left') {
-              drag.property++;
-              assignProp(drag.property);
-              drag.prevX = event.touches[0].pageX;
-            } else {
-              drag.property--;
-              assignProp(drag.property);
-              drag.prevX = event.touches[0].pageX;
-            }
-
-          } else if ((getRealProp() - drag.property) < 0 && drag.dragDir === 'left') {
-            toggleDirection();
-            drag.prevX = event.touches[0].pageX;
-          }
-          if ((getRealProp() - drag.property) > 0 && drag.dragDir === 'right') {
-            toggleDirection();
-            drag.prevX = event.touches[0].pageX;
-          }
-          addtoProp((-event.touches[0].pageX + drag.prevX) / 10000);
-        } else { drag.prevX = event.touches[0].pageX; }
-      }
-    }
-
-    function getRealProp() {
-      return parseFloat(getComputedStyle(document.body).getPropertyValue(drag.propertyName));
-    }
-
-    function assignProp(i) {
-      document.body.style.setProperty(drag.propertyName, i);
-    }
-    function addtoProp(val) {
-      console.log(drag.propertyName);
-      document.body.style.setProperty(drag.propertyName, getRealProp() + val);
-    }
-
-
   }
 
   removeOverflow() {
@@ -262,12 +134,6 @@ export default class AppView {
         }).join('');
     }
   }
-<<<<<<< HEAD
-
-  async renderW_Ooverflow() {
-    this.render_consistent();
-=======
-
   async renderW_Ooverflow() {
     this.render_consistent();
     return new Promise((resolve) => resolve(true));
@@ -278,7 +144,6 @@ export default class AppView {
     if (this.overflowFlag) {
       this.removeOverflow();
     }
->>>>>>> 181ba34... feat: interactive slider; minor styles
     return new Promise((resolve) => resolve(true));
   }
 
