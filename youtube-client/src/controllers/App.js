@@ -1,16 +1,20 @@
 import AppModel from '../models/AppModel.js';
 import AppView from '../views/AppView';
+import LoaderView from '../views/LoaderView';
 
 export default class App {
   constructor() {
+
     this.state = {
       count: 0,
       APIkey: "AIzaSyBIayyyQFMCPmqrGVScDr5kZskIogkeco0",
       queue: '',
       nextPage: '',
-      resultsCount: 0,
-      pageSize: 5,
-      videoIds: []
+      prevPage: '',
+      pageSize: 15,
+      last_i: 0,
+      videoIds: [],
+      endflag: false
     };
   }
 
@@ -24,24 +28,48 @@ export default class App {
 
   async find(queue) {
     this.state.queue = queue;
-    this.renderNext().then(() => this.renderNext());
+    this.renderNext();
   }
 
   async renderNext() {
     const model = new AppModel(this.state);
+    const loader = new LoaderView();
+    loader.render();
+    console.log(this);
     this.createSearchURL();
-    let res = await model.getVideoIds();
-    this.state.nextPage = res.nextPageToken;
-    this.state.videoIds = res.items.map(e => e.id.videoId);
     this.createVideoUrl();
-    const data = await model.getVideos();
-    const view = new AppView(data, 15);
-    view.renderCards();
-    this.state.resultsCount += this.state.pageSize;
+    model.getVideoIds().then((res) => {
+      if (!res.items) {
+        return;
+      }
+      this.state.videoIds.push(res);
+      this.state.nextPage = res.nextPageToken;
+      this.state.prevPage = res.prevPageToken;
+      this.state.videoIds = res.items.map(e => e.id.videoId);
+      this.createVideoUrl();
+      return model.getVideos();
+    }).then((res) => {
+      this.state.clips = res;
+      if (!this.state.last_i && !this.state.nextPage) {
+        this.state.endflag = true;
+      }
+      this.state.last_i += this.state.pageSize - 1;
+
+      const view = new AppView(this.state.clips, this.state.pageSize, this.state.last_i, this.loadPrevivious, this.renderNext, this.state.endflag);
+      view.renderCards().then(() => loader.stop());
+    });
+
+  }
+
+  loadPrevivious() {
+    this.state.nextPage = this.state.prevPage;
+    this.state.last_i -= this.state.pageSize - 1;
+    this.renderNext();
   }
 
   start() {
-    const view = new AppView();
+    this.state.last_i += this.state.pageSize - 1;
+    const view = new AppView(this.state.clips, this.state.pageSize, this.state.last_i, this.loadPrevivious.bind(this), this.renderNext.bind(this));
     view.renderDocument(this);
   }
 }

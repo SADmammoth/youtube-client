@@ -2,7 +2,8 @@
   border: 3px black solid;
   background-color: #c4c4c4;
   height: 100%;
-  width: 400px;height: 300px;
+  width: 100%;
+  padding: 12px;
  }
 
 .card .desc {
@@ -10,4 +11,20 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; }
+  -webkit-line-clamp: 3;
+}
+
+.card .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.card .thumb {
+  width: 23vw;
+  height: 28vh;
+  object-fit: cover;
+  margin: 10px auto;
+}

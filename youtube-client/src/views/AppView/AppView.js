@@ -1,12 +1,68 @@
 import CardView from '../CardView'
-
 export default class AppView {
-  constructor(data, overflowCount) {
-    this.data = Array(20).fill(0);
+  constructor(data, overflowCount, last_i, load_prev, load_next, endflag) {
+    this.data = data || new Array(overflowCount).fill(0);
     this.overflowCount = overflowCount;
+    this.last_i = last_i;
+    this.load_prev = load_prev;
+    this.load_next = load_next;
+    this.endflag = endflag;
   }
 
+
   renderDocument(app) {
+    let slider = document.createElement('div');
+    slider.setAttribute('class', 'slider')
+    let checkbox;
+    for (let i = 0; i < 5; i++) {
+
+      checkbox = document.createElement('input');
+      if (i === 2) {
+        checkbox.setAttribute('checked', 'true');
+        checkbox.setAttribute('class', 'slider-main');
+      }
+      checkbox.setAttribute('type', 'radio');
+      checkbox.setAttribute('name', 'page');
+      slider.appendChild(checkbox);
+      checkbox.addEventListener('click', () => {
+        if (event.target.classList.contains('slider-main')) {
+          return;
+        }
+        document.body.style.setProperty('--i', eval(getComputedStyle(event.target, '::before').getPropertyValue('--n').replace(/.*([0-9] [-+] [0-9]).*/, '$1')));
+        moveslider();
+      })
+      checkbox.style.display = 'none';
+      slider.appendChild(checkbox);
+    }
+
+    slider.children[0].style.display = 'none';
+    slider.children[1].style.display = 'none';
+
+    function moveslider() {
+      let first = parseInt(getComputedStyle(slider.children[0]).getPropertyValue('--i')) - 2;
+      if (getComputedStyle(document.body).getPropertyValue('--i') === '1') {
+        first = -1;
+        slider.children[0].style.display = 'none';
+        slider.children[1].style.display = null;
+      }
+      if (getComputedStyle(document.body).getPropertyValue('--i') === '2') {
+        first = 0;
+        slider.children[0].style.display = null;
+        slider.children[1].style.display = null;
+      }
+      if (getComputedStyle(document.body).getPropertyValue('--i') === '0') {
+        first = -2;
+        slider.children[0].style.display = 'none';
+        slider.children[1].style.display = 'none';
+      } else {
+        if (document.getElementsByClassName('slider-main')[0]) document.getElementsByClassName('slider-main')[0].classList.remove('slider-main');
+        slider.children[parseInt(getComputedStyle(document.body).getPropertyValue('--i')) - first].setAttribute('class', 'slider-main');
+      }
+
+
+    }
+
+    document.body.appendChild(slider);
     let input = document.createElement('input');
     input.setAttribute('type', 'text');
     function find() { app.find(this.value); }
@@ -14,121 +70,158 @@ export default class AppView {
     document.body.appendChild(input);
     let content = document.createElement('ul');
     content.setAttribute('id', 'content');
+
+
+
     document.body.addEventListener('dragstart', () => false);
     content.addEventListener('mousemove', drag);
     content.addEventListener('touchmove', swipe);
-    drag.flag = false;
-    drag.i = 0;
-    drag.dir = 'left';
-    function swipe() {
-      function toggle() {
-        if (drag.dir === 'right') {
-          drag.dir = 'left';
-        }
-        if (drag.dir === 'left') {
-          drag.dir = 'right';
-        }
-      }
-      console.log(drag.prevX);
-      if (drag.flag) {
-        if (drag.prevX) {
-          console.log(drag.i, geti(), event.touches[0].pageX - drag.prevX);
-          if (Math.abs(geti() - drag.i) >= 1) {
-            if (drag.dir === 'left') {
-              drag.i++;
-              assigntoi(drag.i);
-              drag.prevX = event.touches[0].pageX;
-            } else {
-              drag.i--;
-              assigntoi(drag.i);
-              drag.prevX = event.touches[0].pageX;
-            }
-
-          } else if ((geti() - drag.i) < 0 && drag.dir === 'left') {
-            console.log('-');
-
-            toggle();
-            drag.prevX = event.touches[0].pageX;
-          }
-          if ((geti() - drag.i) > 0 && drag.dir === 'right') {
-            toggle();
-            drag.prevX = event.touches[0].pageX;
-          }
-          addtoi((-event.touches[0].pageX + drag.prevX) / 10000);
-        } else { drag.prevX = event.touches[0].pageX; }
-      }
-    }
-
-    function drag() {
-      function toggle() {
-        if (drag.dir === 'right') {
-          drag.dir = 'left';
-        }
-        if (drag.dir === 'left') {
-          drag.dir = 'right';
-        }
-      }
-      if (drag.flag) {
-        if (drag.prevX) {
-          console.log(drag.i, geti(), event.screenX - drag.prevX);
-          if (Math.abs(geti() - drag.i) >= 1) {
-            if (drag.dir === 'left') {
-              drag.i++;
-              assigntoi(drag.i);
-              drag.prevX = event.screenX;
-            } else {
-              drag.i--;
-              assigntoi(drag.i);
-              drag.prevX = event.screenX;
-            }
-
-          } else if ((geti() - drag.i) < 0 && drag.dir === 'left') {
-            console.log('-');
-
-            toggle();
-            drag.prevX = event.screenX;
-          }
-          if ((geti() - drag.i) > 0 && drag.dir === 'right') {
-            toggle();
-            drag.prevX = event.screenX;
-          }
-          addtoi((-event.screenX + drag.prevX) / 10000);
-        }
-      } else { drag.prevX = event.screenX; }
-    }
-
-    function geti() {
-      return parseFloat(getComputedStyle(content).getPropertyValue('--i'));
-    }
-
-    function assigntoi(i) {
-      content.style.setProperty('--i', i);
-    }
-    function addtoi(val) {
-      content.style.setProperty('--i', geti() + val);
-    }
-    content.addEventListener('mousedown', () => { event.preventDefault(); console.log(3); if (event.button === 0) { drag.flag = true } });
-    content.addEventListener('touchstart', () => { event.preventDefault(); console.log(3); drag.flag = true });
-
+    content.addEventListener('mousedown', () => { event.preventDefault(); if (event.button === 0) { drag.dragFlag = true } });
+    content.addEventListener('touchstart', () => { event.preventDefault(); drag.dragFlag = true });
+    document.body.appendChild(content);
     document.body.addEventListener('touchend', () => {
-      if (drag.flag) {
-        drag.dir = 'left';
-        drag.flag = false; drag.prevX = 0;
-        assigntoi(drag.i);
+      if (drag.dragFlag) {
+        drag.dragDir = 'left';
+        drag.dragFlag = false; drag.prevX = 0;
+        assignProp(drag.property);
 
       }
     });
     document.body.addEventListener('mouseup', () => {
-      if (drag.flag) {
-        drag.dir = 'left';
-        console.log(9); if (event.button === 0) {
-          drag.flag = false; drag.prevX = 0;
-          assigntoi(drag.i);
+      if (drag.dragDir === 'right') {
+        if ((drag.last_i - drag.overflowCount - drag.property) === 0) {
+          drag.load_prev();
+          return;
+        }
+      }
+      else {
+        if ((drag.last_i - drag.property) === 0) {
+          drag.load_next();
+          return;
+        }
+      }
+      if (drag.dragFlag) {
+        drag.dragDir = 'left';
+        if (event.button === 0) {
+          drag.dragFlag = false; drag.prevX = 0;
+          assignProp(drag.property);
         }
       }
     });
 
-    document.body.appendChild(content);
+    function toggleDirection() {
+      if (drag.dragDir === 'right') {
+        drag.dragDir = 'left';
+      }
+      if (drag.dragDir === 'left') {
+        drag.dragDir = 'right';
+      }
+    }
+
+    function drag() {
+      if (drag.dragDir === 'right') {
+        if ((drag.last_i - drag.overflowSize - drag.property) === 0) {
+          drag.load_prev();
+          return;
+        }
+      }
+      else {
+        if ((drag.last_i - drag.property) === 0) {
+          drag.load_next();
+          return;
+        }
+      }
+      if (drag.dragFlag) {
+
+        if (drag.prevX) {
+          moveslider();
+          if (Math.abs(getRealProp() - drag.property) >= 1) {
+            if (drag.dragDir === 'left') {
+
+              drag.property++;
+              assignProp(drag.property);
+              drag.prevX = event.screenX;
+            } else {
+              drag.property--;
+              assignProp(drag.property);
+              drag.prevX = event.screenX;
+            }
+
+          } else if ((getRealProp() - drag.property) < 0 && drag.dragDir === 'left') {
+            toggleDirection();
+            drag.prevX = event.screenX;
+          }
+          if ((getRealProp() - drag.property) > 0 && drag.dragDir === 'right') {
+            toggleDirection();
+            drag.prevX = event.screenX;
+          }
+          addtoProp((-event.screenX + drag.prevX) / 4000);
+        }
+      } else { drag.prevX = event.screenX; }
+    }
+
+    drag.content = content;
+    drag.propertyName = '--i';
+    drag.dragDir = 'left';
+    drag.dragFlag = false;
+    drag.property = 0;
+    drag.prevX = undefined;
+    drag.last_i = this.last_i;
+    drag.load_prev = this.load_prev;
+    drag.load_next = this.load_next;
+    drag.overflowCount = this.overflowCount;
+
+    function swipe() {
+      if (drag.dragDir === 'right') {
+        if ((drag.last_i - drag.overflowSize - drag.property) === 0) {
+          drag.load_prev();
+          return;
+        }
+      }
+      else {
+        if ((drag.last_i - drag.property) === 0) {
+          drag.load_next();
+          return;
+        }
+      }
+      if (drag.dragFlag) {
+        if (drag.prevX) {
+          if (Math.abs(getRealProp() - drag.property) >= 1) {
+            if (drag.dragDir === 'left') {
+              drag.property++;
+              assignProp(drag.property);
+              drag.prevX = event.touches[0].pageX;
+            } else {
+              drag.property--;
+              assignProp(drag.property);
+              drag.prevX = event.touches[0].pageX;
+            }
+
+          } else if ((getRealProp() - drag.property) < 0 && drag.dragDir === 'left') {
+            toggleDirection();
+            drag.prevX = event.touches[0].pageX;
+          }
+          if ((getRealProp() - drag.property) > 0 && drag.dragDir === 'right') {
+            toggleDirection();
+            drag.prevX = event.touches[0].pageX;
+          }
+          addtoProp((-event.touches[0].pageX + drag.prevX) / 10000);
+        } else { drag.prevX = event.touches[0].pageX; }
+      }
+    }
+
+    function getRealProp() {
+      return parseFloat(getComputedStyle(document.body).getPropertyValue(drag.propertyName));
+    }
+
+    function assignProp(i) {
+      document.body.style.setProperty(drag.propertyName, i);
+    }
+    function addtoProp(val) {
+      console.log(drag.propertyName);
+      document.body.style.setProperty(drag.propertyName, getRealProp() + val);
+    }
+
 
   }
 
@@ -141,13 +234,33 @@ export default class AppView {
     }
   }
 
-  renderCards() {
-    const cardView = new CardView();
-    const content = document.getElementById('content');
-    content.innerHTML += this.data.map((item, i) => { if (item.count + 1 === this.overflowCount * 2) { this.overflowFlag = true; } return `<li>${cardView.returnHTML(item, i).outerHTML}</li>` }).join('');
+  render_consistent() {
+    if (!this.endflag) {
+      let slider = document.getElementsByClassName('slider')[0];
+      slider.children[2].style.display = null;
+      slider.children[3].style.display = null;
+      slider.children[4].style.display = null;
+      const cardView = new CardView();
+      const content = document.getElementById('content');
+      content.innerHTML += this.data.map(
+        (item) => {
+          if (item.count + 1 === this.overflowCount * 2) { this.overflowFlag = true; }
+          return `<li>${cardView.returnHTML(item).outerHTML}</li>`
+        }).join('');
+    }
+  }
 
-    let N = content.children.length;
-    content.style.setProperty('--n', N);
+  async renderW_Ooverflow() {
+    this.render_consistent();
+    return new Promise((resolve) => resolve(true));
+  }
+
+  async renderCards() {
+    this.render_consistent()
+    if (this.overflowFlag) {
+      this.removeOverflow();
+    }
+    return new Promise((resolve) => resolve(true));
   }
 
 
