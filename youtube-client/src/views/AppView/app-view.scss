@@ -1,21 +1,27 @@
 @media (hover: none) {
-  .slider {
-    display: none; } }
+  .slider{
+    display: none;
+  }
+}
 
-:root {
+:root{
   --card_width: 400px;
-  --page_size: 3; }
+  --page_size: 3;
+}
 
-@media (max-width: 1000px) {
-  :root {
-    --card_width: 200px; } }
+@media (max-width: 1000px){
+  :root{
+    --card_width: 200px;
+  }
+}
 
 #content {
   display: flex;
   align-items: center;
   height: 90vh;
   overflow: hidden;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
 #content li {
   width: var(--card_width);
@@ -24,17 +30,25 @@
   box-sizing: border-box;
   transform: translate(calc(var(--i)*(var(--card_width)+50px)*(-1)));
   transition: transform 1s ease-out;
-  list-style: none; }
+  list-style: none;
+}
+
+@function frac($number){
+  @return $number;
+}
 
 #content:active li *:first-child {
+  $w: var(--i);
   transform: skewX(-4deg);
-  transition: transform 1s ease-out; }
+  transition: transform 1s ease-out;
+}
 
 body {
   --i: 0;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
-.searchbox input {
+.searchbox input{
   width: 300px;
   font-size: 14px;
   height: 25px;
@@ -45,49 +59,59 @@ body {
   background-color: #ff0000;
   border: solid 1px #ff0000;
   transition: all .3s ease-out;
-  color: #ffffff; }
+  color: #ffffff;
+}
 
-.searchbox input:focus {
+.searchbox input:focus{
   outline: none;
   background-color: #ffffff;
-  color: #323232; }
-
-.searchbox input:focus ~ label {
   color: #323232;
-  transition: all .3s ease-out; }
+}
 
-.searchbox {
+.searchbox input:focus~label{
+  color: #323232;
+  transition: all .3s ease-out;
+}
+
+.searchbox{
   margin: 10px auto;
   width: 350px;
-  padding-left: 40px; }
+  padding-left: 40px;
+}
 
-label {
-  color: #ffffff;
-  display: block;
-  font-family: 'FontAwesome Pro';
-  font-size: 18px;
-  left: 6px;
-  bottom: 23px;
-  position: relative;
-  z-index: 1; }
+  label {
+
+    color: #ffffff;
+    display: block;
+    font-family: 'FontAwesome Pro';
+    font-size: 18px;
+    left: 6px;
+    bottom: 23px;
+    position: relative;
+    z-index: 1;
+  }
 
 .searchbox input::after {
-  content: '0'; }
+  content: '0';
+}
 
-#loader {
+#loader{
   position: absolute;
   z-index: -1;
   transform: translateX(50%);
   right: 50%;
-  top: 15%; }
+  top: 15%;
+}
 
 .slider input {
   -webkit-appearance: none;
-  outline: none; }
+  outline: none;
+}
 
 .slider input:hover::after {
   transition: all .3s ease-out;
-  background-color: #ff0000; }
+  background-color: #ff0000;
+}
 
 .slider input::after {
   content: '\ ';
@@ -98,27 +122,30 @@ label {
   height: 10px;
   display: block;
   margin: 2px;
-  margin-top: -15px; }
+  margin-top: -15px;
+}
 
 input.slider-main::after {
   transform: scale(1.2);
   background-color: #ff0000;
-  transition: all .3s ease-out; }
+  transition: all .3s ease-out;
+}
 
 .slider {
   position: absolute;
   bottom: 25%;
   transform: translateX(50%);
   right: 50%;
-  z-index: 2; }
-
-.slider input:nth-child(1):hover::before {
+  z-index: 2;
+}
+.slider input:nth-child(1):hover::before{
   --n: calc(var(--i) - 2);
   counter-reset: i var(--n);
   content: counter(i);
   position: relative;
   right: 5px;
   bottom: 20px;
+
   background-color: #ff0000;
   color: #ffffff;
   font-weight: bold;
@@ -127,9 +154,10 @@ input.slider-main::after {
   height: 15px;
   text-align: center;
   display: block;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
-.slider input:nth-child(2):hover::before {
+.slider input:nth-child(2):hover::before{
   --n: calc(var(--i) - 1);
   counter-reset: i var(--n);
   content: counter(i);
@@ -144,9 +172,10 @@ input.slider-main::after {
   height: 15px;
   text-align: center;
   display: block;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
-.slider input:nth-child(3):hover::before {
+.slider input:nth-child(3):hover::before{
   --n: calc(var(--i));
   counter-reset: i var(--n);
   content: counter(i);
@@ -161,9 +190,10 @@ input.slider-main::after {
   height: 15px;
   text-align: center;
   display: block;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
-.slider input:nth-child(4):hover::before {
+.slider input:nth-child(4):hover::before{
   --n: calc(var(--i) + 1);
   counter-reset: i var(--n);
   content: counter(i);
@@ -178,9 +208,10 @@ input.slider-main::after {
   height: 15px;
   text-align: center;
   display: block;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
-.slider input:nth-child(5):hover::before {
+.slider input:nth-child(5):hover::before{
   --n: calc(var(--i) + 2);
   counter-reset: i var(--n);
   content: counter(i);
@@ -195,7 +226,8 @@ input.slider-main::after {
   height: 15px;
   text-align: center;
   display: block;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
 * {
   padding: 0;
