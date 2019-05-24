@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'app.bundle.js',
-    path: __dirname,
+    path: __dirname + '/dist',
     publicPath: '/',
   },
   devtool: 'source-map',
@@ -21,6 +21,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.otf$/,
+        use: ['file-loader'],
       }
     ],
   },
