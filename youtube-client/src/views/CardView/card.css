@@ -1,9 +1,17 @@
 .card {
-  border: 3px black solid;
-  background-color: #c4c4c4;
+  border: 3px #000000 solid;
+  background-color: #ffffff;
   height: 100%;
   width: 100%;
   padding: 12px;
+ }
+
+ .card:hover{
+  border: 3px #ff0000 solid;
+ }
+
+ .card .title {
+  color: #ff0000;
  }
 
 .card .desc {
@@ -12,6 +20,15 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.card .author {
+  font-size: 15px;
+  display: inline-block;
+}
+
+.card .views{
+  float: right;
 }
 
 .card .title {
@@ -27,4 +44,15 @@
   height: 28vh;
   object-fit: cover;
   margin: 10px auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+i{
+  font-family: 'FontAwesome Pro';
+  font-style: inherit;
+  padding: 5px;
 }

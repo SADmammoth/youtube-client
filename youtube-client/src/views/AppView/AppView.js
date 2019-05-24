@@ -11,6 +11,7 @@ export default class AppView {
 
 
   renderDocument(app) {
+
     let slider = document.createElement('div');
     slider.setAttribute('class', 'slider')
     let checkbox;
@@ -63,14 +64,22 @@ export default class AppView {
     }
 
     document.body.appendChild(slider);
-    let input = document.createElement('input');
-    input.setAttribute('type', 'text');
+    let searchbox = document.createElement('div');
+    let label = document.createElement('label');
+    label.setAttribute('for', 'search');
+    label.innerText = '\uf002'
+    searchbox.setAttribute('class', 'searchbox');
+    let input = document.createElement('input')
+    input.setAttribute('id', 'search');
+    input.setAttribute('type', 'search');
     function find() { app.find(this.value); }
     input.addEventListener('change', find);
-    document.body.appendChild(input);
+
+    searchbox.appendChild(input);
+    searchbox.appendChild(label);
+    document.body.appendChild(searchbox);
     let content = document.createElement('ul');
     content.setAttribute('id', 'content');
-
 
 
     document.body.addEventListener('dragstart', () => false);
@@ -263,5 +272,9 @@ export default class AppView {
     return new Promise((resolve) => resolve(true));
   }
 
+  clear() {
+    let content = document.getElementById('content');
+    content.innerHTML = '';
+  }
 
 }

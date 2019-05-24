@@ -28,6 +28,8 @@ export default class App {
 
   async find(queue) {
     this.state.queue = queue;
+    const view = new AppView();
+    view.clear();
     this.renderNext();
   }
 
