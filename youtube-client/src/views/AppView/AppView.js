@@ -82,6 +82,10 @@ export default class AppView {
     content.setAttribute('id', 'content');
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 181ba34... feat: interactive slider; minor styles
     document.body.addEventListener('dragstart', () => false);
     content.addEventListener('mousemove', drag);
     content.addEventListener('touchmove', swipe);
@@ -258,9 +262,23 @@ export default class AppView {
         }).join('');
     }
   }
+<<<<<<< HEAD
 
   async renderW_Ooverflow() {
     this.render_consistent();
+=======
+
+  async renderW_Ooverflow() {
+    this.render_consistent();
+    return new Promise((resolve) => resolve(true));
+  }
+
+  async renderCards() {
+    this.render_consistent()
+    if (this.overflowFlag) {
+      this.removeOverflow();
+    }
+>>>>>>> 181ba34... feat: interactive slider; minor styles
     return new Promise((resolve) => resolve(true));
   }
 

@@ -2,6 +2,7 @@
   border: 3px #000000 solid;
   background-color: #ffffff;
   height: 100%;
+<<<<<<< HEAD
   width: inherit;
   padding: 12px;
  }
@@ -12,6 +13,10 @@
 
  .card .title {
   color: #ff0000;
+=======
+  width: 100%;
+  padding: 12px;
+>>>>>>> 181ba34... feat: interactive slider; minor styles
  }
 
 .card .desc {
@@ -23,6 +28,7 @@
   -webkit-line-clamp: 3;
 }
 
+<<<<<<< HEAD
 .card .author {
   font-size: 15px;
   display: inline-block;
@@ -32,6 +38,8 @@
   float: right;
 }
 
+=======
+>>>>>>> 181ba34... feat: interactive slider; minor styles
 .card .title {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -46,6 +54,7 @@
   object-fit: cover;
   margin: 10px auto;
 }
+<<<<<<< HEAD
 
 a {
   color: inherit;
@@ -57,3 +66,5 @@ i{
   font-style: inherit;
   padding: 5px;
 }
+=======
+>>>>>>> 181ba34... feat: interactive slider; minor styles

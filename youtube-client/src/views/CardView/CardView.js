@@ -13,7 +13,11 @@ export default class CardDisplay {
                       <img width='320' height='180' class='thumb' src= '${this.clip.thumbUrl}'
                       </a>
                       <h3 class='author'>${this.clip.author}</h3>
+<<<<<<< HEAD
                       <span class='views'><i>\uf06e</i>${this.clip.viewCount}</span>
+=======
+                      <span>${this.clip.viewCount}</span>
+>>>>>>> 181ba34... feat: interactive slider; minor styles
                       <p class='desc'>${this.clip.desc}</p>`
     return card;
   }

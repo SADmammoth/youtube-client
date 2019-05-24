@@ -197,6 +197,140 @@ input.slider-main::after {
   display: block;
   border-radius: 5px; }
 
+#loader{
+  position: absolute;
+  z-index: -1;
+  transform: translateX(50%);
+  right: 50%;
+  top: 15%;
+}
+
+.slider input {
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.slider input:hover::after {
+  transition: all .3s ease-out;
+  background-color: #ff0000;
+}
+
+.slider input::after {
+  content: '\ ';
+  border-radius: 100%;
+  font-size: 0.1px;
+  background-color: #ff9999;
+  width: 10px;
+  height: 10px;
+  display: block;
+  margin: 2px;
+  margin-top: -15px;
+}
+
+input.slider-main::after {
+  transform: scale(1.2);
+  background-color: #ff0000;
+  transition: all .3s ease-out;
+}
+
+.slider {
+  position: absolute;
+  bottom: 25%;
+  transform: translateX(50%);
+  right: 50%;
+  z-index: 2;
+}
+.slider input:nth-child(1):hover::before{
+  --n: calc(var(--i) - 2);
+  counter-reset: i var(--n);
+  content: counter(i);
+  position: relative;
+  right: 5px;
+  bottom: 20px;
+
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all .5s ease-out;
+  width: 20px;
+  height: 15px;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+
+.slider input:nth-child(2):hover::before{
+  --n: calc(var(--i) - 1);
+  counter-reset: i var(--n);
+  content: counter(i);
+  position: relative;
+  right: 5px;
+  bottom: 20px;
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all .5s ease-out;
+  width: 20px;
+  height: 15px;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+
+.slider input:nth-child(3):hover::before{
+  --n: calc(var(--i));
+  counter-reset: i var(--n);
+  content: counter(i);
+  position: relative;
+  right: 5px;
+  bottom: 20px;
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all .5s ease-out;
+  width: 20px;
+  height: 15px;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+
+.slider input:nth-child(4):hover::before{
+  --n: calc(var(--i) + 1);
+  counter-reset: i var(--n);
+  content: counter(i);
+  position: relative;
+  right: 5px;
+  bottom: 20px;
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all .5s ease-out;
+  width: 20px;
+  height: 15px;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+
+.slider input:nth-child(5):hover::before{
+  --n: calc(var(--i) + 2);
+  counter-reset: i var(--n);
+  content: counter(i);
+  position: relative;
+  right: 5px;
+  bottom: 20px;
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all .5s ease-out;
+  width: 20px;
+  height: 15px;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+
 * {
   padding: 0;
   margin: 0; }
