@@ -5,6 +5,7 @@ export default class LoaderView {
 
   render() {
     const content = document.getElementById('content');
+    content.style.background = 'none';
     const loader = document.createElement('img');
     loader.setAttribute('src', this.imgUrl);
     loader.setAttribute('id', 'loader');

@@ -28,11 +28,8 @@ export default class App {
 
   async find(queue) {
     this.state.queue = queue;
-<<<<<<< HEAD
     const view = new AppView();
     view.clear();
-=======
->>>>>>> 181ba34... feat: interactive slider; minor styles
     this.renderNext();
   }
 

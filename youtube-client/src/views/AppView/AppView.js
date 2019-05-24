@@ -12,9 +12,9 @@ export default class AppView {
 
 
   renderDocument(app) {
-
+    document.title = 'RSS Youtube client';
     let slider = document.createElement('div');
-    slider.setAttribute('class', 'slider')
+    slider.setAttribute('class', 'slider');
     let checkbox;
     for (let i = 0; i < 5; i++) {
 
@@ -136,14 +136,6 @@ export default class AppView {
   }
   async renderW_Ooverflow() {
     this.render_consistent();
-    return new Promise((resolve) => resolve(true));
-  }
-
-  async renderCards() {
-    this.render_consistent()
-    if (this.overflowFlag) {
-      this.removeOverflow();
-    }
     return new Promise((resolve) => resolve(true));
   }
 

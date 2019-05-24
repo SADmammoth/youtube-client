@@ -23,7 +23,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.otf$/,
+        test: /\.(otf|png|gif)$/,
         use: ['file-loader'],
       }
     ],

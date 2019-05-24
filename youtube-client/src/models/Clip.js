@@ -6,8 +6,7 @@ export default class Clip {
   parse(response_object, count) {
     this.res = response_object;
 
-
-    this.videoId = this.res.id.VideoId;
+    this.videoId = this.res.id;
     this.title = this.res.snippet.title;
     this.desc = (this.res.snippet.description == '' || this.res.snippet.description == ' ') ? 'No description' : this.res.snippet.description;
     this.thumbUrl = this.res.snippet.thumbnails.medium.url;

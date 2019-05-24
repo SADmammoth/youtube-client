@@ -40,14 +40,19 @@
 #content {
   display: flex;
   align-items: center;
-  height: 60vh;
+  height: 50vh;
   overflow: hidden;
   margin: 0 auto;
+  background-image: url('../../../assets/images/youtube.png');
+  background-size: contain;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+
 }
 
 #content li {
-  width: var(--card_width);
-  height: 60vh;
+  min-width: var(--card_width);
+  height: 45vh;
   margin: 0 var(--spacing);
   box-sizing: border-box;
   transform: translate(calc(var(--i)*(var(--card_width)+50px)*(-1)));
@@ -68,6 +73,7 @@
 body {
   --i: 0;
   overflow: hidden;
+  font-family: 'Segoe UI', 'SF Pro', sans-serif;
 }
 
 .searchbox input{
@@ -122,7 +128,7 @@ body {
   z-index: -1;
   transform: translateX(50%);
   right: 50%;
-  top: 15%;
+  bottom: 15%;
 }
 
 .slider input {
@@ -155,11 +161,12 @@ input.slider-main::after {
 
 .slider {
   position: absolute;
-  bottom: 15%;
+  bottom: 35%;
   transform: translateX(50%);
   right: 50%;
   z-index: 2;
 }
+
 .slider input:nth-child(1):hover::before{
   --n: calc(var(--i) - 2);
   counter-reset: i var(--n);
