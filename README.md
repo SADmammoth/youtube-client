@@ -1,6 +1,7 @@
 # Piskel-clone task for Rolling Scopes School
+What is Rolling Scopes School? - [link](https://rs.school/)
 
-Task conditions: [link](youtube-client](https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/youtube.md)\
+Task conditions: [link](https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/youtube.md)\
 App on server: [Powered by heroku](https://rss-youtube-client.herokuapp.com/)
 
 ## Local machine startup instruction
